@@ -20,22 +20,25 @@ function aniadirProducto(producto) {
   `;
 }
 
-var productos = null; 
+let catID = localStorage.getItem("catID");
 
-document.addEventListener('DOMContentLoaded', async function () {
+var productos = null;
+
+document.addEventListener("DOMContentLoaded", async function () {
   const lista_productos = document.querySelector(".lista-productos");
 
-  let res = await getJSONData(PRODUCTS_URL + "101.json");
+  let res = await getJSONData(PRODUCTS_URL + catID + ".json");
 
   if (res.status === "ok") {
-    
     productos = res.data;
     data = productos.products;
-  
-    data.forEach(producto => {
+    data.forEach((producto) => {
       lista_productos.innerHTML += aniadirProducto(producto);
     });
+
+    let span_catNombre = document.querySelector("#categoriaNombre");
+    span_catNombre.innerHTML += productos.catName;
   } else {
-    console.log('Hubo un problema con la petición');
+    console.log("Hubo un problema con la petición");
   }
 });
