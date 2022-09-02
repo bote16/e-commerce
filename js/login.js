@@ -1,17 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const formulario = document.getElementById("form_login");
 
-  formulario.addEventListener('submit', (evento) => {
+  formulario.addEventListener("submit", (evento) => {
     evento.preventDefault();
 
-    const USER = formulario.querySelector('#usuario');
-    const PASS = formulario.querySelector('#password');
+    const USER = formulario.querySelector("#usuario");
+    const PASS = formulario.querySelector("#password");
 
-    if(USER.value == '' || PASS.value == ''){
-      alert('Verifique que los datos ingresados sean correctos')
-
+    if (USER.value == "" || PASS.value == "") {
+      alert("Verifique que los datos ingresados sean correctos");
     } else {
-      window.location.href="home.html";
+      localStorage.setItem("user", JSON.stringify(USER.value));
+      window.location.href = "home.html";
     }
   });
 });
