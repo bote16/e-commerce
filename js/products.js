@@ -1,25 +1,3 @@
-/* function aniadirProducto(producto) {
-  return `
-    <div class="row shadow rounded overflow-hidden mb-4">
-      <div class="col-sm-6 col-md-4 col-lg-8 p-0 overflow-hidden">
-        <img src="${producto.image}" alt="imgAUTO" class=" img-fluid">
-      </div>
-      <div class="col mt-1">
-        <h4>${producto.name}</h4>
-        <p>${producto.description}</p>
-        <div class="row">
-        <div class="col">
-          <span class="moneda">${producto.currency}</span>
-          <span class="precio">${producto.cost}</span>
-        </div>
-        <div class="col">
-          <p>Vendidos: <span class="cant_vendidos">${producto.soldCount}</span></p>
-        </div>
-      </div>
-    </div>
-  `;
-} */
-
 let catID = localStorage.getItem("catID");
 
 var productos = null;
@@ -102,39 +80,21 @@ document.addEventListener("DOMContentLoaded", async function () {
           (maxCount != undefined && parseInt(product.cost) <= maxCount))
       ) {
         htmlContentToAppend += `
-            <div class="row">
-                <div class="col-3 overflow-hidden">
+            <div class="row overflow-hidden shadow rounded mb-4">
+                <div class="col-3 overflow-hidden p-0">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail img-fluid">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1">${product.name}</h4>
+                        <h4 class="mb-1 mt-1">${product.name}</h4>
                         <small class="text-muted">${product.soldCount} artículos</small>
                     </div>
-                    <p class="mb-1">${product.description}</p>
-                    <p class="mb-1">${product.currency} ${product.cost}</p>
+                    <p class="mb-1 mt-1">${product.description}</p>
+                    <p class="mb-1 mt-1">${product.currency} ${product.cost}</p>  
                 </div>
             </div>
         
-        `; /* `
-        <div class="row shadow rounded overflow-hidden mb-4">
-        <div class="col-sm-6 col-md-4 col-lg-8 p-0 overflow-hidden">
-          <img src="${product.image}" alt="imgAUTO" class=" img-fluid">
-        </div>
-        <div class="col mt-1">
-          <h4>${product.name}</h4>
-          <p>${product.description}</p>
-          <div class="row">
-          <div class="col">
-            <span class="moneda">${product.currency}</span>
-            <span class="precio">${product.cost}</span>
-          </div>
-          <div class="col">
-            <p>Vendidos: <span class="cant_vendidos">${product.soldCount}</span></p>
-          </div>
-        </div>
-      </div>
-            `; */
+        `;
       }
 
       document.querySelector(".lista-productos").innerHTML =
