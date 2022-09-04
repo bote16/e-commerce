@@ -1,4 +1,4 @@
-function aniadirProducto(producto) {
+/* function aniadirProducto(producto) {
   return `
     <div class="row shadow rounded overflow-hidden mb-4">
       <div class="col-sm-6 col-md-4 col-lg-8 p-0 overflow-hidden">
@@ -18,7 +18,7 @@ function aniadirProducto(producto) {
       </div>
     </div>
   `;
-}
+} */
 
 let catID = localStorage.getItem("catID");
 
@@ -39,9 +39,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (res.status === "ok") {
     productos = res.data;
     productsArray = productos.products;
-    productsArray.forEach((producto) => {
+    showProducts();
+    /*   productsArray.forEach((producto) => {
       lista_productos.innerHTML += aniadirProducto(producto);
-    });
+    }); */
 
     let span_catNombre = document.querySelector("#categoriaNombre");
     span_catNombre.innerHTML += productos.catName;
@@ -101,6 +102,21 @@ document.addEventListener("DOMContentLoaded", async function () {
           (maxCount != undefined && parseInt(product.cost) <= maxCount))
       ) {
         htmlContentToAppend += `
+            <div class="row">
+                <div class="col-3 overflow-hidden">
+                    <img src="${product.image}" alt="${product.description}" class="img-thumbnail img-fluid">
+                </div>
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1">${product.name}</h4>
+                        <small class="text-muted">${product.soldCount} artículos</small>
+                    </div>
+                    <p class="mb-1">${product.description}</p>
+                    <p class="mb-1">${product.currency} ${product.cost}</p>
+                </div>
+            </div>
+        
+        `; /* `
         <div class="row shadow rounded overflow-hidden mb-4">
         <div class="col-sm-6 col-md-4 col-lg-8 p-0 overflow-hidden">
           <img src="${product.image}" alt="imgAUTO" class=" img-fluid">
@@ -118,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           </div>
         </div>
       </div>
-            `;
+            `; */
       }
 
       document.querySelector(".lista-productos").innerHTML =
