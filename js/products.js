@@ -2,6 +2,11 @@ let catID = localStorage.getItem("catID");
 
 var productos = null;
 
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html";
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
   const lista_productos = document.querySelector(".lista-productos");
 
@@ -80,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           (maxCount != undefined && parseInt(product.cost) <= maxCount))
       ) {
         htmlContentToAppend += `
-            <div class="row overflow-hidden shadow rounded mb-4">
+            <div onclick="setProductID(${product.id})" class="row overflow-hidden shadow rounded mb-4 cursor-active list-group-item-action" >
                 <div class="col-3 overflow-hidden p-0">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail img-fluid">
                 </div>
