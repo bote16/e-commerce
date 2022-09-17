@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const divImageProd = document.querySelector("#image-cnt");
   const prodName = document.querySelector("#prodName");
   const cntComments = document.querySelector("#comments-container");
+  const starFilled = `<span class="fa fa-star checked"></span>`;
+  const starUnfilled = `<span class="fa fa-star"></span>`;
 
   let res = await getJSONData(PRODUCT_INFO_URL + productID + ".json");
   if (res.status === "ok") {
@@ -50,41 +52,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     let htmlContentToAppend = "";
 
     for (let i = 0; i < comments.length; i++) {
-      var comment = comments[i];
+      let comment = comments[i];
+
+      const starsFill = (score) => {
+        let estrellitas = "";
+        for (let index = 0; index < score; index++) {
+          estrellitas += `<span class="fa fa-star checked"></span>`;
+        }
+        if (score < 5) {
+          for (let index = score; index < 5; index++) {
+            estrellitas += `<span class="fa fa-star"></span>`;
+          }
+        }
+        return estrellitas;
+      };
 
       htmlContentToAppend += `
       <div class="p-2 mt-2 overflow-hidden shadow rounded cursor-active">
             <div class="row">
               <div class="col">
-                <p class="fst-italic fw-bold">${comment.user} - ${comment.dateTime}</p>
+                <p class="fst-italic fw-bold">${comment.user} - ${
+        comment.dateTime
+      }</p>
               </div>
             </div>
             <div class="row">
               <p class="fst-italic">${comment.description}</p>
             </div>
             <div class="row">
-              <p>
-                Calificación <span class="fa fa-star stars" value=${comment.score}></span>
-                <span class="fa fa-star stars" value=${comment.score}></span>
-                <span class="fa fa-star stars" value=${comment.score}></span>
-                <span class="fa fa-star stars" value=${comment.score}></span>
-                <span class="fa fa-star stars" value=${comment.score}></span>
-              </p>
+            <p>${starsFill(comment.score)}</p>  
             </div>
           </div>
   `;
     }
     cntComments.innerHTML += htmlContentToAppend;
   }
-
-  const starsComments = document.querySelectorAll(".stars");
-  console.log(starsComments);
-
-  /*  for (let i = 0; i < starsComments.length; i++) {
-    let commentScore = comments[i].score;
-    let star = starsComments[i];
-    if (star < )
-  } */
 
   function fillStars() {
     //esto sirve para la parte 4, cuando el usuario clickea que haga fill o quite. Crear queryselector con clase fa-stars, la otra se usa para el fetch de comment
