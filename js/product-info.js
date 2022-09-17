@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (let i = 0; i < comments.length; i++) {
       let comment = comments[i];
 
+      //funcion para los comentarios y el llenado segun score
+
       const starsFill = (score) => {
         let estrellitas = "";
         for (let index = 0; index < score; index++) {
