@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let htmlContentToAppend = "";
 
     for (let i = 0; i < comments.length; i++) {
-      let comment = comments[i];
+      var comment = comments[i];
 
       htmlContentToAppend += `
       <div class="p-2 mt-2 overflow-hidden shadow rounded cursor-active">
@@ -64,11 +64,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             <div class="row">
               <p>
-                Calificación <span class="fa fa-star stars"></span>
-                <span class="fa fa-star stars"></span>
-                <span class="fa fa-star stars"></span>
-                <span class="fa fa-star stars"></span>
-                <span class="fa fa-star stars"></span>
+                Calificación <span class="fa fa-star stars" value=${comment.score}></span>
+                <span class="fa fa-star stars" value=${comment.score}></span>
+                <span class="fa fa-star stars" value=${comment.score}></span>
+                <span class="fa fa-star stars" value=${comment.score}></span>
+                <span class="fa fa-star stars" value=${comment.score}></span>
               </p>
             </div>
           </div>
@@ -76,6 +76,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     cntComments.innerHTML += htmlContentToAppend;
   }
+
+  const starsComments = document.querySelectorAll(".stars");
+  console.log(starsComments);
+
+  /*  for (let i = 0; i < starsComments.length; i++) {
+    let commentScore = comments[i].score;
+    let star = starsComments[i];
+    if (star < )
+  } */
 
   function fillStars() {
     //esto sirve para la parte 4, cuando el usuario clickea que haga fill o quite. Crear queryselector con clase fa-stars, la otra se usa para el fetch de comment
