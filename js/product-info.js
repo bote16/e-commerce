@@ -1,4 +1,5 @@
 let productID = localStorage.getItem("productID");
+const btnForm = document.getElementById("sendComment");
 
 document.addEventListener("DOMContentLoaded", async function () {
   const prodPrice = document.querySelector("#prodPrice");
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   prodName.innerText = product.name;
-  product.currency + " " + product.cost;
+  prodPrice.innerText = product.currency + " " + product.cost;
   prodSoldCount.innerText = product.soldCount;
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
@@ -82,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               <p class="fst-italic">${comment.description}</p>
             </div>
             <div class="row">
-            <p>${starsFill(comment.score)}</p>  
+            <p>${starsFill(comment.score)}</p> 
             </div>
           </div>
   `;
@@ -90,19 +91,54 @@ document.addEventListener("DOMContentLoaded", async function () {
     cntComments.innerHTML += htmlContentToAppend;
   }
 
-  function fillStars() {
-    //esto sirve para la parte 4, cuando el usuario clickea que haga fill o quite. Crear queryselector con clase fa-stars, la otra se usa para el fetch de comment
-    stars.forEach((star, i) => {
-      star.onclick = function () {
-        let current_star = i + 1;
-        stars.forEach((star, j) => {
-          if (current_star >= j + 1) {
-            star.classList.add("checked");
-          } else {
-            star.classList.remove("checked");
-          }
-        });
-      };
+  btnForm.addEventListener("click", () => {
+    const form = document.getElementById("make-comment-form");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const descComment = form.querySelector("#descripcion");
+      const scoreComment = form.querySelector("#score");
+
+      if (descComment.value != "" && scoreComment.value != "") {
+        let comentario = new Object();
+        var date = new Date();
+        var current_date =
+          date.getFullYear() +
+          "-" +
+          (date.getMonth() + 1) +
+          "-" +
+          date.getDate();
+        var current_time =
+          date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+        comentario.description = descComment.value;
+        comentario.score = scoreComment.value;
+        comentario.user = INFO_USER;
+        comentario.dateTime = current_date + " " + current_time;
+
+        comments.push(comentario);
+        // console.log(comments);
+        showCommentInfo();
+      } else {
+        alert("Por favor ingrese contenido en el comentario");
+      }
     });
-  }
+  });
 });
+
+function fillStars() {
+  //esto puede servir para la parte 4, cuando el usuario clickea que haga fill o quite. Crear queryselector con clase fa-stars, la otra se usa para el fetch de comment
+  stars.forEach((star, i) => {
+    star.onclick = function () {
+      let current_star = i + 1;
+      stars.forEach((star, j) => {
+        if (current_star >= j + 1) {
+          star.classList.add("checked");
+        } else {
+          star.classList.remove("checked");
+        }
+      });
+    };
+  });
+}

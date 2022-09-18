@@ -71,6 +71,41 @@
         </div>
         <div class="container" id="comments-container"></div>
       </div>
+
+      <div class="container mt-5" id="make-comment-container">
+        <form id="make-comment-form">
+          <div class="mb-2">
+            <label for="descripcion" class="form-label fst-italic fw-bold"
+              >Tu opinión nos importa</label
+            >
+            <textarea
+              class="form-control"
+              placeholder="Deja tu comentario aquí"
+              name="descripcion"
+              id="descripcion"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
+          <div class="mb-2">
+            <label for="score" class="form-label fst-italic fw-bold"
+              >Tu puntuación</label
+            >
+            <select name="score" id="score" form="make-comment-form">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-secondary col-12" id="sendComment">
+              Enviar el comentario
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
     <footer class="text-muted">
       <div class="container">
