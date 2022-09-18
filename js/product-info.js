@@ -27,12 +27,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     showCommentInfo();
   }
 
+  // Poner la info del producto en lo contenedores
   prodName.innerText = product.name;
   prodPrice.innerText = product.currency + " " + product.cost;
   prodSoldCount.innerText = product.soldCount;
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
 
+  //Mostrar los elementos del array de fotos
   function showProductPhotos() {
     let htmlContentToAppend = "";
 
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     divImageProd.innerHTML = htmlContentToAppend;
   }
 
+  //Mostrar la información de los comentarios del producto y calificación
   function showCommentInfo() {
     let htmlContentToAppend = "";
 
@@ -91,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     cntComments.innerHTML += htmlContentToAppend;
   }
 
+  //Formulario comentario
   btnForm.addEventListener("click", () => {
     const form = document.getElementById("make-comment-form");
 
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (descComment.value != "" && scoreComment.value != "") {
         let comentario = new Object();
-        var date = new Date();
+        var date = new Date(); //objeto Date para poder usar la propiedad dateTime en el new Obj
         var current_date =
           date.getFullYear() +
           "-" +
@@ -112,15 +116,53 @@ document.addEventListener("DOMContentLoaded", async function () {
         var current_time =
           date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
+        //propiedades del Objeto
         comentario.description = descComment.value;
         comentario.score = scoreComment.value;
         comentario.user = INFO_USER;
         comentario.dateTime = current_date + " " + current_time;
 
-        comments.push(comentario);
-        // console.log(comments);
-        showCommentInfo();
+        //sumar el comentario
+        let HTMLContentToAppend = "";
+
+        const starsFill = (score) => {
+          let estrellitas = "";
+          for (let index = 0; index < score; index++) {
+            estrellitas += `<span class="fa fa-star checked"></span>`;
+          }
+          if (score < 5) {
+            for (let index = score; index < 5; index++) {
+              estrellitas += `<span class="fa fa-star"></span>`;
+            }
+          }
+          return estrellitas;
+        };
+
+        HTMLContentToAppend += `
+        <div class="p-2 mt-2 overflow-hidden shadow rounded cursor-active">
+              <div class="row">
+                <div class="col">
+                  <p class="fst-italic fw-bold">${comentario.user} - ${
+          comentario.dateTime
+        }</p>
+                </div>
+              </div>
+              <div class="row">
+                <p class="fst-italic">${comentario.description}</p>
+              </div>
+              <div class="row">
+              <p>${starsFill(comentario.score)}</p> 
+              </div>
+            </div>
+    `;
+        cntComments.innerHTML += HTMLContentToAppend;
+
+        //Limitar la cantidad de comentarios por usuario a 1
+        btnForm.setAttribute("disabled", "");
+
+        comments.push(comentario); //añadirlo al array de comentarios
       } else {
+        //asegurar que el comentario tenga contenido
         alert("Por favor ingrese contenido en el comentario");
       }
     });
