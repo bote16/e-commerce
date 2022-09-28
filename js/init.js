@@ -11,8 +11,7 @@ const EXT_TYPE = ".json";
 const INFO_USER = JSON.parse(localStorage.getItem("user")); //get el setitem del login
 const NAV_BAR_LAST_LI =
   document.querySelector("#navbarNav").lastElementChild.lastElementChild;
-
-const DROPDOWN = document.getElementById("DroDown");
+let DROPDOWN = document.querySelector(".dropdown");
 
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -54,18 +53,21 @@ let getJSONData = function (url) {
 
 let append_User = function () {
   if (INFO_USER != "") {
-    //else Iniciar sesion y redireccionar
+    //else Iniciar sesion y redireccionar a login
     var new_div = document.createElement("div"); // crear div
     var new_A = document.createElement("a"); // crear A
     var new_A_1 = document.createElement("a"); //crear A para dropdown
+    var new_A_2 = document.createElement("a");
+    var new_A_3 = document.createElement("a");
     var new_ul = document.createElement("ul"); //crear UL
     var new_li = document.createElement("li");
+    var new_li_1 = document.createElement("li");
+    var new_li_2 = document.createElement("li");
 
     // añadir clases y href al a
     new_A.classList.add("dropdown-toggle");
     new_A.classList.add("nav-link");
     new_A.classList.add("btn");
-
     new_A.href = "#";
 
     //agregar atributos al A
@@ -87,16 +89,44 @@ let append_User = function () {
     var ul = DROPDOWN.lastElementChild; // seleccionar UL
 
     //agregar el Mi carrito, Mi perfil, Cerrar sesion
-    ul.appendChild(new_li); // agregar li
 
+    ul.appendChild(new_li); // agregar li
     var li = ul.lastElementChild; //seleccionar li
     new_A_1.classList.add("dropdown-item");
-    new_A_1.href = "#";
+    new_A_1.href = "cart.html"; //Agregar atributo para redireccionar a Mi Carrito
     li.appendChild(new_A_1);
 
     var a_dropdown_mi_carrito = li.lastElementChild;
     a_dropdown_mi_carrito.innerHTML = "Mi carrito";
+
+    //igual para mi perfil
+
+    ul.appendChild(new_li_1);
+    var li_1 = ul.lastElementChild;
+    new_A_2.classList.add("dropdown-item");
+    new_A_2.href = "my-profile.html"; //Agregar atributo para redireccionar a Mi Perfil
+    li_1.appendChild(new_A_2);
+    var a_dropdown_mi_perfil = li_1.lastElementChild;
+    a_dropdown_mi_perfil.innerHTML = "Mi perfil";
+
+    // cerrar sesion
+
+    ul.appendChild(new_li_2);
+    var li_2 = ul.lastElementChild;
+    new_A_3.classList.add("dropdown-item");
+    new_A_3.href = "index.html"; //redireccionar a login.html
+    new_A_3.setAttribute("onclick", "resetUserID()");
+    new_A_3.onclick = function () {
+      resetUserID();
+    };
+    li_2.appendChild(new_A_3);
+    var a_dropdown_cerrar_sesion = li_2.lastElementChild;
+    a_dropdown_cerrar_sesion.innerHTML = "Cerrar sesión";
   }
 };
 
 append_User();
+
+function resetUserID() {
+  localStorage.removeItem("user");
+}
