@@ -2,10 +2,10 @@ let catID = localStorage.getItem("catID");
 
 var productos = null;
 
-function setProductID(id) {
+/* function setProductID(id) {
   localStorage.setItem("productID", id);
   window.location = "product-info.html";
-}
+} */
 
 document.addEventListener("DOMContentLoaded", async function () {
   const lista_productos = document.querySelector(".lista-productos");

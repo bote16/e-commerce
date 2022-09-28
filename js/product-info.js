@@ -1,5 +1,7 @@
 let productID = localStorage.getItem("productID");
 const btnForm = document.getElementById("sendComment");
+const RELATED_PROD_CNT = document.getElementById("relatedProducts");
+var related_products = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
   const prodPrice = document.querySelector("#prodPrice");
@@ -17,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     product = res.data;
     product_images_array = product.images;
     showProductPhotos();
+    getRelatedProducts();
+    showRelatedProducts();
   }
 
   let res_comment = await getJSONData(
@@ -33,6 +37,32 @@ document.addEventListener("DOMContentLoaded", async function () {
   prodSoldCount.innerText = product.soldCount;
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
+
+  console.log(product.relatedProducts);
+
+  //conseguir el array de products relacionados y almacenarlos en var
+  function getRelatedProducts() {
+    for (i = 0; i < product.relatedProducts.length; i++) {
+      related_products.push(product.relatedProducts[i]);
+    }
+  }
+
+  //imprimir las img en un div y agregar un on click
+  function showRelatedProducts() {
+    let HTMLContentToAppend = "";
+
+    for (let i = 0; i < related_products.length; i++) {
+      let relatedProdItem = related_products[i];
+
+      HTMLContentToAppend += `<div onclick="setProductID(${relatedProdItem.id})" 
+      class="col overflow-hidden shadow rounded mb-4 mt-4 cursor-active border border-dark">
+      <div class="p-0">
+                    <img src="${relatedProdItem.image}" alt="${relatedProdItem.name}" class="img-fluid">
+                    <p>${relatedProdItem.name}</p>
+                </div></div>`;
+    }
+    RELATED_PROD_CNT.innerHTML = HTMLContentToAppend;
+  }
 
   //Mostrar los elementos del array de fotos
   function showProductPhotos() {

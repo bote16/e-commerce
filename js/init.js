@@ -20,6 +20,11 @@ let hideSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "none";
 };
 
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html";
+}
+
 let getJSONData = function (url) {
   let result = {};
   showSpinner();
