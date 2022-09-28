@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
 
-  console.log(product.relatedProducts);
-
   //conseguir el array de products relacionados y almacenarlos en var
   function getRelatedProducts() {
     for (i = 0; i < product.relatedProducts.length; i++) {
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       HTMLContentToAppend += `<div onclick="setProductID(${relatedProdItem.id})" 
       class="col overflow-hidden shadow rounded mb-4 mt-4 cursor-active border border-dark">
       <div class="p-0">
-                    <img src="${relatedProdItem.image}" alt="${relatedProdItem.name}" class="img-fluid">
+                    <img src="${relatedProdItem.image}" alt="${relatedProdItem.name}" class="img-fluid mt-2">
                     <p>${relatedProdItem.name}</p>
                 </div></div>`;
     }
