@@ -65,7 +65,7 @@ let append_User = function () {
     var new_li_2 = document.createElement("li");
 
     // añadir clases y href al a
-    new_A.classList.add("dropdown-toggle");
+    new_A.classList.add("dropdown-toggle", "justify-content-sm-start");
     new_A.classList.add("nav-link");
     new_A.classList.add("btn");
     new_A.href = "#";
