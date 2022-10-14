@@ -1,5 +1,4 @@
 let ID = "25801";
-var arr = [];
 var cnt = document.getElementById("appendCartProducts");
 
 const showArticleInfo = function (arr) {
@@ -38,7 +37,7 @@ const showArticleInfo = function (arr) {
 const refreshPrice = function (i) {
   let input_value = document.getElementById(i).value;
   let total_price = document.getElementById(i + 1);
-  let article_arr = arr[i][i];
+  let article_arr = arrArticlesCart[i][i];
   let initial_price = article_arr.unitCost;
 
   if (input_value > 0) {
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (res.status === "ok") {
     var cartData = res.data;
     var cartDataArticles = cartData.articles;
-    arr.push(cartDataArticles);
-    showArticleInfo(arr);
+    arrArticlesCart.push(cartDataArticles);
+    showArticleInfo(arrArticlesCart);
   }
 });

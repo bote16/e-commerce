@@ -12,6 +12,7 @@ const INFO_USER = JSON.parse(localStorage.getItem("user")); //get el setitem del
 const NAV_BAR_LAST_LI =
   document.querySelector("#navbarNav").lastElementChild.lastElementChild;
 let DROPDOWN = document.querySelector(".dropdown");
+var arrArticlesCart = []; //articles user
 
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -65,7 +66,7 @@ let append_User = function () {
     var new_li_2 = document.createElement("li");
 
     // añadir clases y href al a
-    new_A.classList.add("dropdown-toggle", "justify-content-sm-start");
+    new_A.classList.add("dropdown-toggle", "text-sm-start");
     new_A.classList.add("nav-link");
     new_A.classList.add("btn");
     new_A.href = "#";
