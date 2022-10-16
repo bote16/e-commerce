@@ -18,7 +18,7 @@ const showArticleInfo = function (arr) {
           </div>
           <div class="col">
             <div class="input-group input-group-sm">
-              <input type="number" onchange="refreshPrice(${i})" class="form-control" aria-label="Sizing example input"
+              <input type="number" onchange="refreshPrice(${i})" min="0" oninput="this.value = Math.abs(this.value)" class="form-control" aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-sm" value=${
                   article.count
                 } id="${i.toString()}">
