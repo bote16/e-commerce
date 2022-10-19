@@ -1,7 +1,9 @@
 let productID = localStorage.getItem("productID");
 const btnForm = document.getElementById("sendComment");
 const RELATED_PROD_CNT = document.getElementById("relatedProducts");
+const BTN_BUY = document.getElementById("btnBuy");
 var related_products = [];
+var uniqueItemsCart = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
   const prodPrice = document.querySelector("#prodPrice");
@@ -17,16 +19,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   let res = await getJSONData(PRODUCT_INFO_URL + productID + ".json");
   if (res.status === "ok") {
     product = res.data;
+    console.log(product);
     product_images_array = product.images;
     showProductPhotos();
     getRelatedProducts();
     showRelatedProducts();
-    /* arr.push("hola");
-    arr.push("como");
-    arr.push("estas");
-    localStorage.setItem('articulo', arr); */
-
-
   }
 
   let res_comment = await getJSONData(
@@ -44,8 +41,38 @@ document.addEventListener("DOMContentLoaded", async function () {
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
 
+  //action buy, when clicked -> getArticleInfo --> send to localStorage
+  BTN_BUY.addEventListener("click", () => {
+    getItemForCart();
+    // storeItemForCart(itemsCart);
+  });
+  //function for the buy action, getting the info - obj with article info - push to arrray
+  const getItemForCart = function () {
+    let itemID = product.id;
+    let itemName = prodName.innerText;
+    let itemPrice = product.cost;
+    let itemImage = product.images[0];
+    let itemCurrency = product.currency;
 
-  
+    //article that user intends to buy
+    article = {
+      id: itemID,
+      name: itemName,
+      cost: itemPrice,
+      currency: itemCurrency,
+      count: 1,
+      image: itemImage,
+    };
+
+    // https://www.designcise.com/web/tutorial/how-to-check-if-a-key-exists-in-localstorage-using-javascript#:~:text=Learn%20how%20to%20check%20if%20an%20item%20is%20set%20in%20localStorage&text=localStorage%20property)%20has%20no%20hasItem,getItem('nonExistent')%20!%3D%3D
+    localStorage.setItem("cart", JSON.stringify(article));
+  };
+
+  /* // send arr with article to local storage
+  const storeItemForCart = function (array) {
+    localStorage.setItem("cart", JSON.stringify(array));
+  }; */
+
   //conseguir el array de products relacionados y almacenarlos en var
   function getRelatedProducts() {
     for (i = 0; i < product.relatedProducts.length; i++) {
