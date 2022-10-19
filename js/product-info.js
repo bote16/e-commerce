@@ -3,7 +3,6 @@ const btnForm = document.getElementById("sendComment");
 const RELATED_PROD_CNT = document.getElementById("relatedProducts");
 const BTN_BUY = document.getElementById("btnBuy");
 var related_products = [];
-var itemsCart = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
   const prodPrice = document.querySelector("#prodPrice");
@@ -67,13 +66,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     //verify if it exists item before push, if it exist .count++
     for (let i = 0; i < itemsCart.length; i++) {
       if (itemsCart[i].id === article.id) {
-        itemsCart[i].count++;
+        itemsCart.count++;
         return;
       }
     }
     itemsCart.push(article);
-    // https://www.designcise.com/web/tutorial/how-to-check-if-a-key-exists-in-localstorage-using-javascript#:~:text=Learn%20how%20to%20check%20if%20an%20item%20is%20set%20in%20localStorage&text=localStorage%20property)%20has%20no%20hasItem,getItem('nonExistent')%20!%3D%3D
-    //localStorage.setItem("cart", JSON.stringify(article));
+    localStorage.setItem("cart", JSON.stringify(itemsCart));
   };
 
   /* // send arr with article to local storage
