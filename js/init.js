@@ -13,6 +13,7 @@ const NAV_BAR_LAST_LI =
   document.querySelector("#navbarNav").lastElementChild.lastElementChild;
 let DROPDOWN = document.querySelector(".dropdown");
 var arrArticlesCart = []; //articles user
+var arr = [];
 
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";

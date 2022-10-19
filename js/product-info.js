@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     showProductPhotos();
     getRelatedProducts();
     showRelatedProducts();
+    /* arr.push("hola");
+    arr.push("como");
+    arr.push("estas");
+    localStorage.setItem('articulo', arr); */
+
+
   }
 
   let res_comment = await getJSONData(
@@ -38,6 +44,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   prodDescription.innerText = product.description;
   prodCategory.innerText = product.category;
 
+
+  
   //conseguir el array de products relacionados y almacenarlos en var
   function getRelatedProducts() {
     for (i = 0; i < product.relatedProducts.length; i++) {
