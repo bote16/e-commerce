@@ -18,10 +18,15 @@ const updateTotalShoppingCart = function () {
     let shoppingCartItemQuantity = Number(
       shoppingCartItemQuantityElement.value
     );
+    const initialPriceArray = shoppingCartItem
+      .querySelector(".item-price-with-currency")
+      .textContent.split(" ");
+    const initialPrice = Number(initialPriceArray.splice(1).join());
 
-    total = total + shoppingCartItemPrice * shoppingCartItemQuantity;
+    // Arreglar para que las cuentas den bien
+    total = total + initialPrice * shoppingCartItemQuantity;
   });
-  shoppingCartTotal.innerHTML = `${total.toFixed(1)}$`;
+  shoppingCartTotal.innerHTML = `${total}$`;
 };
 
 const refreshPrice = function (event) {
@@ -31,11 +36,11 @@ const refreshPrice = function (event) {
   const itemPriceElement = itemElement.querySelector(".item-price");
   const itemPrice = Number(itemPriceElement.textContent);
 
-  // usar el otro para no modificar el value
-  const initialPrice = Number(
-    itemElement.querySelector(".item-price-with-currency").split("$") // arreglar
-  );
-  console.log(initialPrice);
+  // usar otro valor sin modificar el que necesitamos mostrar
+  const initialPriceArray = itemElement
+    .querySelector(".item-price-with-currency")
+    .textContent.split(" ");
+  const initialPrice = Number(initialPriceArray.splice(1).join());
 
   itemPriceElement.innerHTML = itemQuantity * initialPrice;
 };
@@ -58,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="col">
               <div class="input-group input-group-sm">
-                <input type="number" onchange="updateTotalShoppingCart(); refreshPrice(event)" min="0" oninput="this.value = Math.abs(this.value)" class="item-quantity form-control" aria-label="Sizing example input"
+                <input type="number" onchange=" refreshPrice(event);updateTotalShoppingCart();" min="1" oninput="this.value = Math.abs(this.value)" class="item-quantity form-control" aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-sm" value=${article.count} >
               </div>
             </div>
@@ -89,16 +94,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
  */
-
-/* const refreshPrice = function (i) {
-  let input_value = document.getElementById(i).value;
-  let total_price = document.getElementById(i + 1);
-  let article_arr = itemsCart[i];
-  let initial_price = article_arr.cost;
-
-  if (input_value > 0) {
-    total_price.innerText = input_value * initial_price;
-  } else {
-    total_price.innerText = initial_price;
-  }
-}; */
