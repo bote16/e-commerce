@@ -1,5 +1,6 @@
 let ID = "25801";
 var cnt = document.getElementById("appendCartProducts");
+let dolar = 40;
 
 const updateTotalShoppingCart = function () {
   let total = 0;
@@ -22,10 +23,14 @@ const updateTotalShoppingCart = function () {
       .querySelector(".item-price-with-currency")
       .textContent.split(" ");
     const initialPrice = Number(initialPriceArray.splice(1).join());
-
-    total = total + initialPrice * shoppingCartItemQuantity;
+    console.log(initialPriceArray);
+    if (initialPriceArray[0] == "UYU") {
+      total = total + (initialPrice / dolar) * shoppingCartItemQuantity;
+    } else {
+      total = total + initialPrice * shoppingCartItemQuantity;
+    }
   });
-  shoppingCartTotal.innerHTML = `${total}$`;
+  shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
 };
 
 const refreshPriceOnDelete = function (event) {
