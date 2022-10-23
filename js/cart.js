@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="item-price"> ${article.cost} </p>
             </div>
             <div class="col">
-            <button type="button" onclick="removeCartItem(event); refreshPriceOnDelete(event)" class="btn btn-sm btn-danger button-delete" data-id=${i} >X</button>
+            <button type="button" onclick="removeCartItem(event); refreshPriceOnDelete(event)" class="btn btn-sm btn-danger button-delete" >X</button>
             </div>
             
           </div>
