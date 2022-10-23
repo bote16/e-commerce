@@ -23,10 +23,30 @@ const updateTotalShoppingCart = function () {
       .textContent.split(" ");
     const initialPrice = Number(initialPriceArray.splice(1).join());
 
-    // Arreglar para que las cuentas den bien
     total = total + initialPrice * shoppingCartItemQuantity;
   });
   shoppingCartTotal.innerHTML = `${total}$`;
+};
+
+const refreshPriceOnDelete = function (event) {
+  const button = event.target;
+};
+
+const removeCartItem = function (event) {
+  const itemCartElement = event.target.parentElement.parentElement;
+  const itemCartID = itemCartElement.getAttribute("id");
+
+  itemCartElement.remove();
+  for (let i = 0; i < itemsCart.length; i++) {
+    let item = itemsCart[i];
+    if (item.id == itemCartID) {
+      itemsCart.splice(i, 1);
+      itemsCart = JSON.stringify(itemsCart);
+      localStorage.setItem("cart", itemsCart);
+      itemsCart = JSON.parse(localStorage.getItem("cart")) || [];
+      return;
+    }
+  }
 };
 
 const refreshPrice = function (event) {
@@ -51,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < arr.length; i++) {
       let article = arr[i];
       HTMLContentToAppend += ` 
-          <div class="shopping-cart-item row mt-2 mb-4 row-cols-6">
+          <div class="shopping-cart-item row mt-2 mb-4 row-cols-6" id="${article.id}">
             <div class="col">
               <img src="${article.image}" alt="" class="img-fluid">
             </div>
@@ -71,10 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="item-price"> ${article.cost} </p>
             </div>
             <div class="col">
-            <button type="button" class="btn btn-sm btn-danger button-delete">Quitar</button>
+            <button type="button" onclick="removeCartItem(event); refreshPriceOnDelete(event)" class="btn btn-sm btn-danger button-delete" data-id=${i} >X</button>
             </div>
+            
           </div>
-          <hr>
+          
               `;
     }
     cnt.innerHTML = HTMLContentToAppend;
