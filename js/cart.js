@@ -1,12 +1,12 @@
 let ID = "25801";
 var cnt = document.getElementById("appendCartProducts");
 let dolar = 40;
+const shoppingCartTotal = document.querySelector(".sum-values-items-cart");
 
 const updateTotalShoppingCart = function () {
   let total = 0;
 
   const shoppingCartItems = document.querySelectorAll(".shopping-cart-item");
-  const shoppingCartTotal = document.querySelector(".sum-values-items-cart");
 
   shoppingCartItems.forEach((shoppingCartItem) => {
     const shoppingCartItemPriceElement =
@@ -23,7 +23,7 @@ const updateTotalShoppingCart = function () {
       .querySelector(".item-price-with-currency")
       .textContent.split(" ");
     const initialPrice = Number(initialPriceArray.splice(1).join());
-    console.log(initialPriceArray);
+
     if (initialPriceArray[0] == "UYU") {
       total = total + (initialPrice / dolar) * shoppingCartItemQuantity;
     } else {
@@ -34,7 +34,27 @@ const updateTotalShoppingCart = function () {
 };
 
 const refreshPriceOnDelete = function (event) {
-  const button = event.target;
+  const itemsCartElements = document.querySelectorAll(".shopping-cart-item");
+  let total = 0;
+
+  itemsCartElements.forEach((item) => {
+    const shoppingCartItemQuantityElement =
+      item.querySelector(".item-quantity");
+    let shoppingCartItemQuantity = Number(
+      shoppingCartItemQuantityElement.value
+    );
+    const initialPriceArray = item
+      .querySelector(".item-price-with-currency")
+      .textContent.split(" ");
+    const initialPrice = Number(initialPriceArray.splice(1).join());
+
+    if (initialPriceArray[0] == "UYU") {
+      total = total + (initialPrice / dolar) * shoppingCartItemQuantity;
+    } else {
+      total = total + initialPrice * shoppingCartItemQuantity;
+    }
+  });
+  shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
 };
 
 const removeCartItem = function (event) {
@@ -61,7 +81,6 @@ const refreshPrice = function (event) {
   const itemPriceElement = itemElement.querySelector(".item-price");
   const itemPrice = Number(itemPriceElement.textContent);
 
-  // usar otro valor sin modificar el que necesitamos mostrar
   const initialPriceArray = itemElement
     .querySelector(".item-price-with-currency")
     .textContent.split(" ");
