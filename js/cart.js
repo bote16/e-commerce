@@ -1,7 +1,44 @@
-let ID = "25801";
+// let ID = "25801";
 var cnt = document.getElementById("appendCartProducts");
 let dolar = 40;
+
 const shoppingCartTotal = document.querySelector(".sum-values-items-cart");
+
+const premiumShipping = document.getElementById("premiumShipping");
+const expressShipping = document.getElementById("expressShipping");
+const standardShipping = document.getElementById("standardShipping");
+const creditCardPayment = document.getElementById("flexRadioDefault1Cart");
+const bankAccountPayment = document.getElementById("flexRadioDefault2Cart");
+
+// creditCardPayment.checked
+// bankAccountPayment.checked
+// premiumShipping.checked
+// expressShipping.checked
+// standardShipping.checked
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  "use strict";
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll(".needs-validation");
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();
 
 const updateTotalShoppingCart = function () {
   let total = 0;
