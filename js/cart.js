@@ -1,4 +1,3 @@
-// let ID = "25801";
 var cnt = document.getElementById("appendCartProducts");
 let dolar = 40;
 
@@ -24,18 +23,14 @@ let paymentValidationEnable = false;
 
 const checkPaymentType = function () {
   if (!paymentValidationEnable) return;
-  if (!creditCardPayment.checked || !bankAccountPayment.checked) {
+
+  const inputs = document.querySelectorAll(".radio-input");
+
+  if (!inputs[0].checked && !inputs[1].checked) {
     btnPayment.classList.add("text-danger");
     invalidPayment.style.display = "block";
-  } else {
-    btnPayment.classList.remove("text-danger");
-    btnPayment.classList.add("text-success");
-    invalidPayment.style.display = "none";
-  }
-};
-
-const creditCardPay = function (e) {
-  if (e.checked) {
+  } else if (inputs[0].checked) {
+    //credit card
     bankAccountPayment.removeAttribute("required");
     btnPayment.classList.remove("text-danger");
     btnPayment.classList.add("text-success");
@@ -45,11 +40,8 @@ const creditCardPay = function (e) {
     paymentCCV.removeAttribute("disabled");
     paymentCREDIT_CARD.removeAttribute("disabled");
     paymentEXPIRY_DATE.removeAttribute("disabled");
-  }
-};
-
-const bankAccountPay = function (e) {
-  if (e.checked) {
+  } else if (inputs[1].checked) {
+    //bankpayment
     creditCardPayment.removeAttribute("required");
     btnPayment.classList.remove("text-danger");
     btnPayment.classList.add("text-success");
@@ -79,6 +71,7 @@ form.addEventListener(
   },
   false
 );
+
 // premiumShipping.checked
 // expressShipping.checked
 // standardShipping.checked
@@ -208,14 +201,3 @@ document.addEventListener("DOMContentLoaded", () => {
   showArticleInfo(itemsCart);
   updateTotalShoppingCart();
 });
-
-/* document.addEventListener("DOMContentLoaded", async function () {
-  let res = await getJSONData(CART_INFO_URL + ID + ".json");
-  if (res.status === "ok") {
-    var cartData = res.data;
-    var cartDataArticles = cartData.articles;
-    arrArticlesCart.push(cartDataArticles);
-    showArticleInfo();
-  }
-});
- */
