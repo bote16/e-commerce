@@ -9,36 +9,79 @@ const expressShipping = document.getElementById("expressShipping");
 const standardShipping = document.getElementById("standardShipping");
 const creditCardPayment = document.getElementById("flexRadioDefault1Cart");
 const bankAccountPayment = document.getElementById("flexRadioDefault2Cart");
+const btnPayment = document.getElementById(
+  "btnTriggerModalShoppingCartPayment"
+);
+const invalidPayment = document.getElementById("novalid_payment");
+const paymentCREDIT_CARD = document.getElementById("paymentNumberCreditCard");
+const paymentCCV = document.getElementById("paymentCCV");
+const paymentEXPIRY_DATE = document.getElementById("paymentExpiryDate");
+const bankAccountNumberPayment = document.getElementById("bankPayment");
 
-// creditCardPayment.checked
-// bankAccountPayment.checked
+const form = document.querySelector(".needs-validation");
+
+let paymentValidationEnable = false;
+
+const checkPaymentType = function () {
+  if (!paymentValidationEnable) return;
+  if (!creditCardPayment.checked || !bankAccountPayment.checked) {
+    btnPayment.classList.add("text-danger");
+    invalidPayment.style.display = "block";
+  } else {
+    btnPayment.classList.remove("text-danger");
+    btnPayment.classList.add("text-success");
+    invalidPayment.style.display = "none";
+  }
+};
+
+const creditCardPay = function (e) {
+  if (e.checked) {
+    bankAccountPayment.removeAttribute("required");
+    btnPayment.classList.remove("text-danger");
+    btnPayment.classList.add("text-success");
+    invalidPayment.style.display = "none";
+    btnPayment.textContent = "Ha seleccionado pagar con tarjeta";
+    bankAccountNumberPayment.setAttribute("disabled", "");
+    paymentCCV.removeAttribute("disabled");
+    paymentCREDIT_CARD.removeAttribute("disabled");
+    paymentEXPIRY_DATE.removeAttribute("disabled");
+  }
+};
+
+const bankAccountPay = function (e) {
+  if (e.checked) {
+    creditCardPayment.removeAttribute("required");
+    btnPayment.classList.remove("text-danger");
+    btnPayment.classList.add("text-success");
+    invalidPayment.style.display = "none";
+    btnPayment.textContent = "Ha seleccionado pagar por cuenta de banco";
+    paymentCREDIT_CARD.setAttribute("disabled", "");
+    paymentCCV.setAttribute("disabled", "");
+    paymentEXPIRY_DATE.setAttribute("disabled", "");
+    paymentCREDIT_CARD.removeAttribute("required");
+    paymentCCV.removeAttribute("required");
+    paymentEXPIRY_DATE.removeAttribute("required");
+    bankAccountNumberPayment.removeAttribute("disabled");
+  }
+};
+
+form.addEventListener(
+  "submit",
+  function (e) {
+    form.classList.add("was-validated");
+    paymentValidationEnable = true;
+    checkPaymentType();
+
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  },
+  false
+);
 // premiumShipping.checked
 // expressShipping.checked
 // standardShipping.checked
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  "use strict";
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll(".needs-validation");
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener(
-      "submit",
-      function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      },
-      false
-    );
-  });
-})();
 
 const updateTotalShoppingCart = function () {
   let total = 0;

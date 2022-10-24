@@ -179,33 +179,38 @@
             </div>
             <div class="modal-body">
               <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1Cart">
+                <input class="form-check-input" 
+                onclick="creditCardPay(this)"
+                type="radio" name="flexRadioDefault" 
+                id="flexRadioDefault1Cart" required>
                 <label class="form-check-label" for="flexRadioDefault1Cart">
                  Tarjeta de crédito
                 </label>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Nro Tarjeta</span>
-                <input type="text" class="form-control" placeholder="..." aria-label="..." aria-describedby="basic-addon1" >
+                <input type="text" class="form-control" placeholder="..." aria-label="..." aria-describedby="basic-addon1" id="paymentNumberCreditCard" required>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon2">Código seguridad</span>
-                <input type="text" class="form-control" placeholder="XXX" aria-label="XXX" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="XXX" aria-label="XXX" aria-describedby="basic-addon2" id="paymentCCV" required>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Vencimiento (MM/AA)</span>
-                <input type="text" class="form-control" placeholder="mm/aa" aria-label="mm/aa" aria-describedby="basic-addon3">
+                <input type="text" class="form-control" placeholder="mm/aa" aria-label="mm/aa" aria-describedby="basic-addon3" id="paymentExpiryDate" required>
               </div>
               <hr>
               <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2Cart">
+                <input class="form-check-input" 
+                onclick="bankAccountPay(this)"
+                type="radio" name="flexRadioDefault" id="flexRadioDefault2Cart" required>
                 <label class="form-check-label" for="flexRadioDefault2Cart">
                   Número de cuenta
                 </label>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon4">Cuenta</span>
-                <input type="text" class="form-control" placeholder="..." aria-label="..." aria-describedby="basic-addon4" >
+                <input id="bankPayment" type="text" class="form-control" placeholder="..." aria-label="..." aria-describedby="basic-addon4" required >
               </div>
             </div>
           </div>
