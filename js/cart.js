@@ -1,8 +1,6 @@
 var cnt = document.getElementById("appendCartProducts");
 let dolar = 40;
-
 const shoppingCartTotal = document.querySelector(".sum-values-items-cart");
-
 const premiumShipping = document.getElementById("premiumShipping");
 const expressShipping = document.getElementById("expressShipping");
 const standardShipping = document.getElementById("standardShipping");
@@ -72,24 +70,32 @@ const refreshTotalPriceFromShipping = function (event) {
     shoppingCartTotal.textContent.split(" ")[0] //because array with currency included
   );
 
-  // console.log(total_without_shipping);
+  console.log(total_without_shipping);
 
   if (input.getAttribute("id") === "premiumShipping") {
-    let shippingPrice = Number(total_without_shipping * 0.15);
-    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
-    shippingPriceElement.textContent = shippingPrice;
-    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+    let shippingPrice = Number(total_without_shipping * 0.15).toFixed(2);
+    let totalPriceWithShipping =
+      Number(shippingPrice) + Number(total_without_shipping);
+    shippingPriceElement.textContent = Number(shippingPrice).toFixed(2);
+    totalPriceWithShippingElement.textContent = Number(
+      totalPriceWithShipping
+    ).toFixed(2);
   } else if (input.getAttribute("id") === "expressShipping") {
-    let shippingPrice = Number(total_without_shipping * 0.07);
-    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
-    shippingPriceElement.textContent = shippingPrice;
-    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+    let shippingPrice = Number(total_without_shipping * 0.07).toFixed(2);
+    let totalPriceWithShipping =
+      Number(shippingPrice) + Number(total_without_shipping);
+    shippingPriceElement.textContent = Number(shippingPrice).toFixed(2);
+    totalPriceWithShippingElement.textContent = Number(
+      totalPriceWithShipping
+    ).toFixed(2);
   } else if (input.getAttribute("id") === "standardShipping") {
-    let shippingPrice = Number(total_without_shipping * 0.05);
-    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
-    console.log(totalPriceWithShipping);
-    shippingPriceElement.textContent = shippingPrice;
-    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+    let shippingPrice = Number(total_without_shipping * 0.05).toFixed(2);
+    let totalPriceWithShipping =
+      Number(shippingPrice) + Number(total_without_shipping);
+    shippingPriceElement.textContent = Number(shippingPrice).toFixed(2);
+    totalPriceWithShippingElement.textContent = Number(
+      totalPriceWithShipping
+    ).toFixed(2);
   }
 };
 
@@ -108,10 +114,6 @@ form.addEventListener(
   },
   false
 );
-
-// premiumShipping.checked
-// expressShipping.checked
-// standardShipping.checked
 
 const updateTotalShoppingCart = function () {
   let total = 0;
@@ -145,7 +147,10 @@ const updateTotalShoppingCart = function () {
 
 const refreshPriceOnDelete = function (event) {
   const itemsCartElements = document.querySelectorAll(".shopping-cart-item");
-
+  let shippingPriceElement = document.querySelector(".shipping-price-table");
+  let totalPriceWithShippingElement = document.querySelector(
+    ".total-price-with-shipping-included"
+  );
   let total = 0;
 
   itemsCartElements.forEach((item) => {
@@ -165,7 +170,34 @@ const refreshPriceOnDelete = function (event) {
       total = total + initialPrice * shoppingCartItemQuantity;
     }
   });
-  shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
+
+  if (premiumShipping.checked) {
+    shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
+    let premiumShippingValue = (total.toFixed(2) * 0.15).toFixed(2);
+    shippingPriceElement.textContent = Number(premiumShippingValue).toFixed(2);
+    totalPriceWithShippingElement.textContent =
+      totalPriceWithShippingElement.textContent = (
+        Number(total) + Number(premiumShippingValue)
+      ).toFixed(2);
+  } else if (expressShipping.checked) {
+    shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
+    let expressShippingValue = (total.toFixed(2) * 0.07).toFixed(2);
+    shippingPriceElement.textContent = Number(expressShippingValue).toFixed(2);
+    totalPriceWithShippingElement.textContent = (
+      Number(total) + Number(expressShippingValue)
+    ).toFixed(2);
+  } else if (standardShipping.checked) {
+    shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
+    let standardShippingValue = (total.toFixed(2) * 0.05).toFixed(2);
+    shippingPriceElement.textContent = Number(standardShippingValue).toFixed(2);
+    totalPriceWithShippingElement.textContent = (
+      Number(total) + Number(standardShippingValue)
+    ).toFixed(2);
+  } else {
+    shoppingCartTotal.innerHTML = `${total.toFixed(2)} USD`;
+    totalPriceWithShippingElement.textContent = " ";
+    shippingPriceElement.textContent = " ";
+  }
 };
 
 const removeCartItem = function (event) {
