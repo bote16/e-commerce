@@ -74,19 +74,19 @@
         <form id="formCart" class="needs-validation" novalidate>
           <h4 class>Tipo de envío</h4>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="premiumShipping" checked>
+            <input class="form-check-input shippingType" type="radio" name="flexRadioDefault" id="premiumShipping"  oninput="refreshTotalPriceFromShipping(event)" required >
             <label class="form-check-label" for="premiumShipping">
               Premium 2 a 5 días (15%)
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="expressShipping">
+            <input class="form-check-input shippingType" type="radio" name="flexRadioDefault" id="expressShipping" oninput="refreshTotalPriceFromShipping(event)" required>
             <label class="form-check-label" for="expressShipping">
               Express 5 a 8 días (7%)
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="standardShipping">
+            <input class="form-check-input shippingType" type="radio" name="flexRadioDefault" id="standardShipping"  oninput="refreshTotalPriceFromShipping(event)" required>
             <label class="form-check-label" for="standardShipping">
               Standard 12 a 15 días (5%)
             </label>
@@ -230,8 +230,8 @@
             <tbody>
               <tr class="table-light">
                 <th scope="row" class="sum-values-items-cart"></th>
-                <td></td>
-                <td></td>
+                <td class="shipping-price-table"></td>
+                <td class="total-price-with-shipping-included"></td>
               </tr>
              <!--Till here-->
             </tbody>

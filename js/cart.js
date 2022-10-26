@@ -57,12 +57,49 @@ const checkPaymentType = function () {
   }
 };
 
+const checkShippingType = function () {
+  let shipping_types_elements = document.querySelectorAll(".shipping-class");
+};
+
+const refreshTotalPriceFromShipping = function (event) {
+  let input = event.target;
+  let shippingPriceElement = document.querySelector(".shipping-price-table");
+  let totalPriceWithShippingElement = document.querySelector(
+    ".total-price-with-shipping-included"
+  );
+
+  let total_without_shipping = Number(
+    shoppingCartTotal.textContent.split(" ")[0] //because array with currency included
+  );
+
+  // console.log(total_without_shipping);
+
+  if (input.getAttribute("id") === "premiumShipping") {
+    let shippingPrice = Number(total_without_shipping * 0.15);
+    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
+    shippingPriceElement.textContent = shippingPrice;
+    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+  } else if (input.getAttribute("id") === "expressShipping") {
+    let shippingPrice = Number(total_without_shipping * 0.07);
+    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
+    shippingPriceElement.textContent = shippingPrice;
+    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+  } else if (input.getAttribute("id") === "standardShipping") {
+    let shippingPrice = Number(total_without_shipping * 0.05);
+    let totalPriceWithShipping = Number(shippingPrice + total_without_shipping);
+    console.log(totalPriceWithShipping);
+    shippingPriceElement.textContent = shippingPrice;
+    totalPriceWithShippingElement.textContent = totalPriceWithShipping;
+  }
+};
+
 form.addEventListener(
   "submit",
   function (e) {
     form.classList.add("was-validated");
     paymentValidationEnable = true;
     checkPaymentType();
+    checkShippingType();
 
     if (!form.checkValidity()) {
       e.preventDefault();
@@ -108,6 +145,7 @@ const updateTotalShoppingCart = function () {
 
 const refreshPriceOnDelete = function (event) {
   const itemsCartElements = document.querySelectorAll(".shopping-cart-item");
+
   let total = 0;
 
   itemsCartElements.forEach((item) => {
