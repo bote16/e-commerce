@@ -14,7 +14,7 @@ const paymentCREDIT_CARD = document.getElementById("paymentNumberCreditCard");
 const paymentCCV = document.getElementById("paymentCCV");
 const paymentEXPIRY_DATE = document.getElementById("paymentExpiryDate");
 const bankAccountNumberPayment = document.getElementById("bankPayment");
-
+const btnSuccessfulBuy = document.getElementById("buttonSuccessfulBuy");
 const form = document.querySelector(".needs-validation");
 
 let paymentValidationEnable = false;
@@ -106,12 +106,17 @@ form.addEventListener(
     paymentValidationEnable = true;
     checkPaymentType();
     checkShippingType();
-    
     if (!form.checkValidity()) {
       e.preventDefault();
       e.stopPropagation();
+      return;
     }
+
+    showSpinner();
+
+    btnSuccessfulBuy.classList.remove("d-none");
   },
+
   false
 );
 
