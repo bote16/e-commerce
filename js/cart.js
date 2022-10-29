@@ -106,7 +106,7 @@ form.addEventListener(
     paymentValidationEnable = true;
     checkPaymentType();
     checkShippingType();
-
+    
     if (!form.checkValidity()) {
       e.preventDefault();
       e.stopPropagation();

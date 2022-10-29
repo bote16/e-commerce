@@ -95,7 +95,7 @@ let append_User = function () {
     ul.appendChild(new_li); // agregar li
     var li = ul.lastElementChild; //seleccionar li
     new_A_1.classList.add("dropdown-item");
-    new_A_1.href = "cart.html"; //Agregar atributo para redireccionar a Mi Carrito
+    new_A_1.setAttribute("onclick", "verifyItemsCart()"); // checkear si hay items en el carrito, si true redireccionar a cart.html
     li.appendChild(new_A_1);
 
     var a_dropdown_mi_carrito = li.lastElementChild;
@@ -128,6 +128,14 @@ let append_User = function () {
 };
 
 append_User();
+
+function verifyItemsCart() {
+  if (itemsCart.length <= 0) {
+    window.location.href = "categories.html";
+  } else {
+    window.location.href = "cart.html";
+  }
+}
 
 function resetUserID() {
   localStorage.removeItem("user");
