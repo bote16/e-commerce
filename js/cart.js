@@ -112,9 +112,12 @@ form.addEventListener(
       return;
     }
 
-    showSpinner();
-
+    e.preventDefault();
     btnSuccessfulBuy.classList.remove("d-none");
+    setTimeout(() => {
+      window.location.href = "categories.html";
+    }, 5000);
+    localStorage.removeItem("cart");
   },
 
   false
