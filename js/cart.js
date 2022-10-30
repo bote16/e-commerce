@@ -29,6 +29,7 @@ const checkPaymentType = function () {
     invalidPayment.style.display = "block";
   } else if (inputs[0].checked) {
     //credit card
+    
     bankAccountPayment.removeAttribute("required");
     btnPayment.classList.remove("text-danger");
     btnPayment.classList.add("text-success");
