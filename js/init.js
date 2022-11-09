@@ -15,6 +15,9 @@ let DROPDOWN = document.querySelector(".dropdown");
 var arrArticlesCart = []; //articles user
 var itemsCart = JSON.parse(localStorage.getItem("cart")) || []; //array con items del cart
 
+let profileInfo =
+  JSON.parse(localStorage.getItem("profile")) || new Array(INFO_USER);
+
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
 };
@@ -139,4 +142,7 @@ function verifyItemsCart() {
 
 function resetUserID() {
   localStorage.removeItem("user");
+  localStorage.removeItem("profileName");
+  localStorage.removeItem("profileLastname");
+  localStorage.removeItem("cart");
 }
