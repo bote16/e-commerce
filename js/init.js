@@ -147,6 +147,6 @@ function resetUserID() {
   localStorage.removeItem("profileSecondName");
   localStorage.removeItem("profileSecondSurname");
   localStorage.removeItem("profilePhoneNumber");
-  
+  localStorage.removeItem("profilePhoto");
   localStorage.removeItem("cart");
 }

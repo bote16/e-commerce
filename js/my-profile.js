@@ -1,5 +1,6 @@
 const form = document.getElementById("formProfile");
 
+let imgPhotoProfile = document.getElementById("imgPhotoProfile");
 let inputEmail = document.getElementById("inputUserProfile_Email");
 let inputName = document.getElementById("inputUserProfile_Name");
 let inputLastname = document.getElementById("inputUserProfile_Lastname");
@@ -8,6 +9,39 @@ let inputSecondSurname = document.getElementById(
   "inputUserProfile_SecondSurname"
 );
 let inputPhoneNumber = document.getElementById("inputUserProfile_PhoneNumber");
+let inputPhoto = document.getElementById("inputUserProfile_Photo");
+
+//when chosen photo, load img..
+const onFileSelected = function (event) {
+  var target = event.target;
+  files = target.files;
+  //check support FileAPI
+  if (FileReader && files && files.length) {
+    var selectedPhoto = files[0];
+    // obj file
+    var reader = new FileReader();
+
+    imgPhotoProfile.title = selectedPhoto.name;
+    //if file read successfully event.onload, change img src, result attribute contains data url
+    reader.onload = function (event) {
+      imgPhotoProfile.src = event.target.result;
+      //send usable url value to localstorage
+      localStorage.setItem("profilePhoto", JSON.stringify(reader.result));
+    };
+    // read result data
+    reader.readAsDataURL(selectedPhoto);
+  } else {
+    return;
+  }
+};
+
+const checkProfilePhoto = function () {
+  let LSTOR_photo = JSON.parse(localStorage.getItem("profilePhoto"));
+  if (LSTOR_photo) {
+    return true;
+  }
+  return false;
+};
 
 const emailToInput = function () {
   inputEmail.value = INFO_USER;
@@ -56,6 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
     inputPhoneNumber.value = JSON.parse(
       localStorage.getItem("profilePhoneNumber")
     );
+  }
+  if (checkProfilePhoto()) {
+    imgPhotoProfile.src = JSON.parse(localStorage.getItem("profilePhoto"));
   }
 
   form.addEventListener(
